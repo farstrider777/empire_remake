@@ -3,8 +3,13 @@
 //2 = neutral city
 //3 = player one's city
 //4 = player two's city
-//5 = plaer three's city
+//5 = player three's city
 // etc..
+
+// add other moves that can take cities beside right
+// add diagonals
+// break up some functions and move them to make more accurate names and more efficient code
+//make one or two types of units that can move around on the board and fight
 
 var board = [];
 var height = 10
@@ -43,6 +48,7 @@ function drawRow(rowNumber){
   $(".boardHtml").html(currentHtml)
 }
 
+chooseYourCity(15);
 drawBoard();
 
 function drawBoard(){
@@ -57,7 +63,7 @@ elementList = document.querySelectorAll("div");
 
 function findCityRow(rowNumber){
   for(var count = 0; count < board[rowNumber].length; count++){
-    if(board[rowNumber][count] === 2){
+    if(board[rowNumber][count] === 3){
       if(turnNumber % 6 === 0){
         //console.log(`made a army at ${rowNumber}r${count}c`)
         var where = `${rowNumber}r${count}c`;
@@ -125,6 +131,20 @@ function makeMove(this_where){
       if(board[Math.floor((this_where + 1)/width)][(this_where + 1) % width] === 1){
         elementList[this_where + 1].innerHTML = "A-";
       }
+      if(board[Math.floor((this_where + 1)/width)][(this_where + 1) % width] === 2){
+        if(Math.random() > .5){
+          console.log("your army was victorious the city is yours!")
+          elementList[this_where + 1].innerHTML = "A-";
+          //change board array
+          board[Math.floor((this_where + 1)/width)][(this_where + 1) % width] = 3;
+          //change background-color of new city
+          var changeHtml = elementList[this_where + 1];
+          changeHtml = $(changeHtml);
+          changeHtml.removeClass("b2").addClass("b3");
+        }else {
+          console.log("your army has been defeated and destroyed!")
+        }
+      }
       elementList[this_where].innerHTML = "";
       $("div").off();
       findEach();
@@ -180,10 +200,19 @@ function makeMove(this_where){
   }
 }
 
+
+function chooseYourCity(where){
+  //$(elementList[where].click(function(){
+    board[1][4] = 3;
+  }
+
+
+
 function takeTurn(){
   turnNumber++;
   turnBut.innerHTML = turnNumber
   removeMinus();
+
   produce();
   var where = findEach();
   makeMove(where);
@@ -194,5 +223,7 @@ function takeTurn(){
 $("button").click(takeTurn)
 
 
-
+// add other moves that can take cities beside right
+// add diagonals
+// break up some functions and move them to make more accurate names and more efficient code
 //make one or two types of units that can move around on the board and fight
