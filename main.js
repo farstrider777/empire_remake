@@ -6,14 +6,16 @@
 //5 = player three's city
 // etc..
 
-// add other moves that can take cities beside right
+// add proper production based on when city is taken
 // add diagonals
 // break up some functions and move them to make more accurate names and more efficient code
+// implent fog of war
+// implent mulitiple players
 //make one or two types of units that can move around on the board and fight
 
 var board = [];
-var height = 10
-var width = 10
+var height = 30
+var width = 50
 while(board.push(generateBoard(width)) < height){
 };
 
@@ -162,7 +164,7 @@ function makeMove(this_where){
           console.log("your army was victorious the city is yours!")
           elementList[this_where - 1].innerHTML = "A-";
           //change board array
-          board[Math.floor((this_where + 1)/width)][(this_where - 1) % width] = 3;
+          board[Math.floor((this_where - 1)/width)][(this_where - 1) % width] = 3;
           //change background-color of new city
           var changeHtml = elementList[this_where - 1];
           changeHtml = $(changeHtml);
@@ -183,6 +185,20 @@ function makeMove(this_where){
       if(board[Math.floor((this_where - width)/width)][(this_where - width) % width] === 1){
         elementList[this_where - width].innerHTML = "A-";
       }
+      if(board[Math.floor((this_where - width)/width)][(this_where - width) % width] === 2){
+        if(Math.random() > .5){
+          console.log("your army was victorious the city is yours!")
+          elementList[this_where - width].innerHTML = "A-";
+          //change board array
+          board[Math.floor((this_where - width)/width)][(this_where - width) % width] = 3;
+          //change background-color of new city
+          var changeHtml = elementList[this_where - width];
+          changeHtml = $(changeHtml);
+          changeHtml.removeClass("b2").addClass("b3");
+        }else {
+          console.log("your army has been defeated and destroyed!")
+        }
+      }
       elementList[this_where].innerHTML = "";
       $("div").off();
       findEach();
@@ -195,6 +211,20 @@ function makeMove(this_where){
     $(elementList[this_where + width]).click(function(){
       if(board[Math.floor((this_where + width)/width)][(this_where + width) % width] === 1){
         elementList[this_where + width].innerHTML = "A-";
+      }
+      if(board[Math.floor((this_where + width)/width)][(this_where + width) % width] === 2){
+        if(Math.random() > .5){
+          console.log("your army was victorious the city is yours!")
+          elementList[this_where + width].innerHTML = "A-";
+          //change board array
+          board[Math.floor((this_where + width)/width)][(this_where + width) % width] = 3;
+          //change background-color of new city
+          var changeHtml = elementList[this_where + width];
+          changeHtml = $(changeHtml);
+          changeHtml.removeClass("b2").addClass("b3");
+        }else {
+          console.log("your army has been defeated and destroyed!")
+        }
       }
       elementList[this_where].innerHTML = "";
       $("div").off();
