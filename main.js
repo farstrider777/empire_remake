@@ -22,7 +22,7 @@ function generateBoard(width){
   for(var count = 0; count < width; count++){
     boardRow.push(chooseWaterCityOrLand())
   }
-  console.log(boardRow)
+  //console.log(boardRow)
   return boardRow
 }
 
@@ -156,6 +156,20 @@ function makeMove(this_where){
     $(elementList[this_where - 1]).click(function(){
       if(board[Math.floor((this_where - 1)/width)][(this_where - 1) % width] === 1){
         elementList[this_where - 1].innerHTML = "A-";
+      }
+      if(board[Math.floor((this_where - 1)/width)][(this_where - 1) % width] === 2){
+        if(Math.random() > .5){
+          console.log("your army was victorious the city is yours!")
+          elementList[this_where - 1].innerHTML = "A-";
+          //change board array
+          board[Math.floor((this_where + 1)/width)][(this_where - 1) % width] = 3;
+          //change background-color of new city
+          var changeHtml = elementList[this_where - 1];
+          changeHtml = $(changeHtml);
+          changeHtml.removeClass("b2").addClass("b3");
+        }else {
+          console.log("your army has been defeated and destroyed!")
+        }
       }
       elementList[this_where].innerHTML = "";
       $("div").off();
