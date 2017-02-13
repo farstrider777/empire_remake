@@ -1,9 +1,10 @@
-
-
 //0 = water
 //1 = land
-//2 = city
-
+//2 = neutral city
+//3 = player one's city
+//4 = player two's city
+//5 = plaer three's city
+// etc..
 
 var board = [];
 var height = 10
@@ -22,7 +23,6 @@ function generateBoard(width){
 
 function chooseWaterCityOrLand(){
   var waterLandOrCity = Math.random();
-
   if(waterLandOrCity < .035){
     return 2;
   } else if (waterLandOrCity < .35){
@@ -30,7 +30,7 @@ function chooseWaterCityOrLand(){
   } else return 0;
 }
 
-  var currentHtml;
+var currentHtml;
 
 function drawRow(rowNumber){
   for(var count = 0; count < board[rowNumber].length; count++){
@@ -53,12 +53,6 @@ function drawBoard(){
 
 var turnBut = document.getElementById("turnBut");
 turnNumber = Number(turnBut.innerHTML);
-
-function produce(){
- //scroll thru each city look at what turn they were set to produce men if it's 6 turns later add a man to that space
-
-}
-
 elementList = document.querySelectorAll("div");
 
 function findCityRow(rowNumber){
@@ -82,8 +76,6 @@ function produce(){
     findCityRow(count);
   }
 }
-
-
 
 function findEachRow(rowNumber){
   for(var count = 0; count < board[rowNumber].length; count++){
@@ -180,10 +172,7 @@ function makeMove(this_where){
   //stay in place
   if(true){
     $(elementList[this_where]).click(function(){
-      //if(board[Math.floor((this_where)/width)][(this_where) % width] === 1){
         elementList[this_where].innerHTML = "A-";
-      //}
-      //elementList[this_where].innerHTML = "";
       $("div").off();
       findEach();
       makeMove(where);
@@ -198,9 +187,6 @@ function takeTurn(){
   produce();
   var where = findEach();
   makeMove(where);
-
-
-
   //every unit that can be moved is moved
   //turn counter is moved up one
 }
