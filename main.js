@@ -55,6 +55,12 @@ function drawRow(rowNumber){
   $(".boardHtml").html(currentHtml)
 }
 
+function drawBoard(){
+  for(var count = 0; count < board.length; count++){
+    drawRow(count);
+  }
+}
+
 chooseYourCity();
 drawBoard();
 
@@ -62,27 +68,19 @@ function chooseYourCity(){
     board[Math.floor(Math.random() * height)][Math.floor(Math.random() * width)] = 3;
   }
 
-function drawBoard(){
-  for(var count = 0; count < board.length; count++){
-    drawRow(count);
-  }
-}
-
 var turnBut = document.getElementById("turnBut");
 turnNumber = Number(turnBut.innerHTML);
 elementList = document.querySelectorAll("div");
 
-function findCityRow(rowNumber){
+function produceRow(rowNumber){
   for(var count = 0; count < board[rowNumber].length; count++){
-    if(board[rowNumber][count] === 3){
-      if(turnNumber % 6 === 0){
-        //console.log(`made a army at ${rowNumber}r${count}c`)
-        var where = `${rowNumber}r${count}c`;
-        //console.log(where);
-        where = (rowNumber * width) + count;
-        //turnBut.innerHTML = "99";
+    if(Math.floor(board[rowNumber][count]) === 3){
+      board[rowNumber][count] = board[rowNumber][count] + .0100001;
+      console.log(board[rowNumber][count])
+      if(board[rowNumber][count] >= 3.06){
+        var where = (rowNumber * width) + count;
         elementList[where].innerHTML = "A";
-
+        board[rowNumber][count] = 3;
       }
     }
   }
@@ -90,7 +88,7 @@ function findCityRow(rowNumber){
 
 function produce(){
   for(var count = 0; count < board.length; count++){
-    findCityRow(count);
+    produceRow(count);
   }
 }
 
