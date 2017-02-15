@@ -6,6 +6,11 @@
 //5 = player three's city
 // etc..
 
+
+/// maybe add where you have the option to add the * with a click then you move that pieces
+// could use it to set paths for your troops
+// make pieces be able to be moved in any order... will it work with * on each piece?
+// what about pieces that are next to each other... why does doulbe * happens sometimes
 // add proper production based on when city is taken
 // add diagonals
 // break up some functions and move them to make more accurate names and more efficient code
@@ -14,8 +19,9 @@
 //make one or two types of units that can move around on the board and fight
 
 var board = [];
-var height = 30
-var width = 50
+var height = 7
+var width = 10
+
 while(board.push(generateBoard(width)) < height){
 };
 
@@ -24,7 +30,6 @@ function generateBoard(width){
   for(var count = 0; count < width; count++){
     boardRow.push(chooseWaterCityOrLand())
   }
-  //console.log(boardRow)
   return boardRow
 }
 
@@ -50,8 +55,12 @@ function drawRow(rowNumber){
   $(".boardHtml").html(currentHtml)
 }
 
-chooseYourCity(15);
+chooseYourCity();
 drawBoard();
+
+function chooseYourCity(){
+    board[Math.floor(Math.random() * height)][Math.floor(Math.random() * width)] = 3;
+  }
 
 function drawBoard(){
   for(var count = 0; count < board.length; count++){
@@ -245,10 +254,7 @@ function makeMove(this_where){
 }
 
 
-function chooseYourCity(where){
-  //$(elementList[where].click(function(){
-    board[1][4] = 3;
-  }
+
 
 
 
