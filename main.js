@@ -11,15 +11,26 @@
 // could use it to set paths for your troops
 // make pieces be able to be moved in any order... will it work with * on each piece?
 // what about pieces that are next to each other... why does doulbe * happens sometimes
-// add proper production based on when city is taken
 // add diagonals
 // break up some functions and move them to make more accurate names and more efficient code
 // implent fog of war
 // implent mulitiple players
 //make one or two types of units that can move around on the board and fight
 
+class Army{
+  constructor(color){
+    this.color = color;
+    //this.scoreboard = new Scoreboard(1, 5);
+  }
+
+  popBug2(){
+    console.log("say hello")
+  }
+
+}
+
 var board = [];
-var height = 7
+var height = 10
 var width = 10
 
 while(board.push(generateBoard(width)) < height){
@@ -37,7 +48,7 @@ function chooseWaterCityOrLand(){
   var waterLandOrCity = Math.random();
   if(waterLandOrCity < .035){
     return 2;
-  } else if (waterLandOrCity < .35){
+  } else if (waterLandOrCity < .6){
     return 1;
   } else return 0;
 }
